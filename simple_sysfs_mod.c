@@ -50,7 +50,7 @@ static ssize_t simple_sysfs_mod_show(struct kobject* kobj,
                                      char* buf)
 {
 	bool is_one = strcmp(attr->attr.name, simple_sysfs_mod.attr1.attr.name);
-	printk("Call %s\n", __func__);
+	pr_info("Call %s\n", __func__);
 	/* Need to return the size of written data to buf.
 	* I think scnprintf is safer than snprintf.
 	**/
@@ -69,23 +69,23 @@ static ssize_t simple_sysfs_mod_store(struct kobject* kobj,
 {
 	int ret, data;
 	bool is_one = strcmp(attr->attr.name, simple_sysfs_mod.attr1.attr.name);
-	printk("Call %s\n", __func__);
+	pr_info("Call %s\n", __func__);
 	ret = kstrtoint(buf, 10, &data);
-	printk("Finish parse val %d ret %d\n", data, ret);
+	pr_info("Finish parse val %d ret %d\n", data, ret);
 	if (ret < 0){
-		printk("[%s] Error: Invalid data\n", __func__);
+		pr_info("[%s] Error: Invalid data\n", __func__);
 		goto finish;
 	}
 	if (SIMPLE_SYSFS_DATA_MIN > data || SIMPLE_SYSFS_DATA_MAX < data){
-		printk("[%s] Error: Invalid data\n", __func__);
+		pr_info("[%s] Error: Invalid data\n", __func__);
 		goto finish;
 	}
 	if (is_one){
 		simple_sysfs_mod.data_1 = data;
-		printk("Store data_1\n");
+		pr_info("Store data_1\n");
 	} else {
 		simple_sysfs_mod.data_2 = data;
-		printk("Store data_2\n");
+		pr_info("Store data_2\n");
 	}
 finish:
 	return count;
@@ -134,7 +134,7 @@ static int simple_sysfs_mod_init(void)
 	ret = sysfs_create_group(simple_sysfs_mod.kobj, &simple_sysfs_mod.attr_group);
 	if(ret)
 		goto free_kobj;
-	printk("Load simple_sysfs_mod\n");
+	pr_info("Load simple_sysfs_mod\n");
 	return 0;
 
 free_kobj:
@@ -145,7 +145,7 @@ free_kobj:
 static void simple_sysfs_mod_exit(void)
 {
 	kobject_put(simple_sysfs_mod.kobj);
-	printk("Unload simple_sysfs_mod\n");
+	pr_info("Unload simple_sysfs_mod\n");
 }
 
 module_init(simple_sysfs_mod_init);
