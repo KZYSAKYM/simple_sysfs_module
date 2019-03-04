@@ -1,3 +1,10 @@
+// SPDX-License-Identifier: GPL-2.0
+// Please see LICENSES/preferred/GPL-2.0
+/*
+ * simple sysfs file creating module for the training
+ *
+ * Copyright (C) 2019 Kazuyoshi Akiyama <akiyama.kazuyoshi.64w@gmail.com>
+ */
 #include <linux/module.h>
 #include <linux/kobject.h>
 #include <linux/sysfs.h>
@@ -146,7 +153,7 @@ module_exit(simple_sysfs_mod_exit);
 
 MODULE_LICENSE("GPL v2");
 /* We should sign with the name and email.
- * But, I don't want to make my email address open.
+ * Please see include/linux/module.h
  **/
-MODULE_AUTHOR("KZYSAKYM <https://github.com/KZYSAKYM>");
+MODULE_AUTHOR("Kazuyoshi Akiyama <akiyama.kazuyoshi.64w@gmail.com>");
 MODULE_DESCRIPTION("Simple Sysfs file create module");
